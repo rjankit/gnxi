@@ -76,7 +76,7 @@ func main() {
 	flag.Var(&pbModelDataFlags, "model_data", "Data models to be used by the target in the format of 'name,organization,version'")
 	flag.Parse()
 
-	opts := credentials.ClientCredentials(*targetName)
+	opts := credentials.ClientCredentials()
 	conn, err := grpc.Dial(*targetAddr, opts...)
 	if err != nil {
 		log.Exitf("Dialing to %q failed: %v", *targetAddr, err)
