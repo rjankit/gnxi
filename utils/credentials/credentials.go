@@ -40,7 +40,7 @@ var (
 	key   = flag.String("key", "", "Private key file.")
 
 	// TargetName is a flag containing the hostname verfified by TLS handshake.
-	TargetName     = flag.String("target_name", "", "The target name used to verify the hostname returned by TLS handshake")
+	TargetName     = flag.String("target_name", "www.example.com", "The target name used to verify the hostname returned by TLS handshake")
 	insecure       = flag.Bool("insecure", false, "Skip TLS validation.")
 	notls          = flag.Bool("notls", false, "Disable TLS validation. If true, no need to specify TLS related options.")
 	authorizedUser = userCredentials{}
