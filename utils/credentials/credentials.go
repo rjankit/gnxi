@@ -35,7 +35,7 @@ var (
 	ca             = flag.String("ca", "", "CA certificate file.")
 	cert           = flag.String("cert", "", "Certificate file.")
 	key            = flag.String("key", "", "Private key file.")
-	insecure       = flag.Bool("insecure", false, "Skip TLS validation.")
+	insecure       = flag.Bool("insecure", true, "Skip TLS validation.")
 	notls          = flag.Bool("notls", false, "Disable TLS validation. If true, no need to specify TLS related options.")
 	authorizedUser = userCredentials{}
 	usernameKey    = "username"
