@@ -24,13 +24,13 @@ import (
 
 	log "github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
+	"github.com/jipanyang/gnxi/utils"
+	"github.com/rjankit/gnxi/utils/credentials"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"github.com/google/gnxi/utils"
-	"github.com/google/gnxi/utils/credentials"
+	//"github.com/google/gnxi/utils/credentials"
 	"github.com/jipanyang/gnxi/utils/xpath"
-
 	pb "github.com/openconfig/gnmi/proto/gnmi"
 )
 
@@ -65,9 +65,9 @@ var (
 	pbModelDataFlags arrayFlags
 	pathTarget       = flag.String("xpath_target", "CONFIG_DB", "name of the target for which the path is a member")
 	targetAddr       = flag.String("target_addr", "localhost:10161", "The target address in the format of host:port")
-	targetName       = flag.String("target_name", "hostname.com", "The target name use to verify the hostname returned by TLS handshake")
-	timeOut          = flag.Duration("time_out", 10*time.Second, "Timeout for the Get request, 10 seconds by default")
-	encodingName     = flag.String("encoding", "JSON_IETF", "value encoding format to be used")
+	//targetName       = flag.String("target_name", "hostname.com", "The target name use to verify the hostname returned by TLS handshake")
+	timeOut      = flag.Duration("time_out", 10*time.Second, "Timeout for the Get request, 10 seconds by default")
+	encodingName = flag.String("encoding", "JSON_IETF", "value encoding format to be used")
 )
 
 func main() {
@@ -75,8 +75,8 @@ func main() {
 	flag.Var(&pbPathFlags, "pbpath", "protobuf format path of the config node to be fetched")
 	flag.Var(&pbModelDataFlags, "model_data", "Data models to be used by the target in the format of 'name,organization,version'")
 	flag.Parse()
-
-	opts := credentials.ClientCredentials()
+	//credentials.SetTargetName()
+	opts := credentials.ClientCredentials("www.example.com")
 	conn, err := grpc.Dial(*targetAddr, opts...)
 	if err != nil {
 		log.Exitf("Dialing to %q failed: %v", *targetAddr, err)
@@ -130,6 +130,7 @@ func main() {
 	}
 
 	fmt.Println("== getRequest:")
+	//fmt.Println(getRequest)
 	utils.PrintProto(getRequest)
 
 	getResponse, err := cli.Get(ctx, getRequest)
@@ -138,5 +139,6 @@ func main() {
 	}
 
 	fmt.Println("== getResponse:")
+	//fmt.Println(getResponse)
 	utils.PrintProto(getResponse)
 }
